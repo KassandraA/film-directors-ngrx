@@ -1,0 +1,16 @@
+<p>directors-home works!</p>
+<h1>Film Directors</h1>
+
+<ul>
+  <li *ngFor="let director of directors$" (click)="loadDirector(director)">
+    {{ director }}
+  </li>
+</ul>
+
+<pre>
+  {{ state$ | async | json }}
+  {{ selectedDirector$ | async | json }}
+</pre>
+
+<app-director-detail [selectedDirector]="selectedDirector$ | async">
+</app-director-detail>

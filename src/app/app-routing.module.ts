@@ -1,18 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DirectorsHomeComponent } from './components';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  // { path: 'contacts', loadChildren: './contacts/con'},
   {
-    path: 'contacts',
-    loadChildren: () =>
-      import('./contacts/contacts.module').then((m) => m.ContactsModule),
+    path: '',
+    component: DirectorsHomeComponent,
   },
-  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

@@ -1,40 +1,40 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { AppComponent } from './app.component';
+import {
+  HttpClient,
+  HttpHandler,
+  HttpClientModule,
+} from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-import { AuthService } from './auth/auth.service';
-import { AuthModule } from './auth/auth.module';
-import { ContactService } from './contacts/contact.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { DataStorageService } from './shared/data-storage.service';
-import { YearValidateDirective } from './shared/yearValidate.directive';
+
+import { StoreModule, ReducerManager } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import * as components from './components';
+import * as effects from './effects';
+import * as services from './services';
+import { filmDirectorsReducer } from './reducers';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    HeaderComponent,
-    PageNotFoundComponent,
-    YearValidateDirective
+    components.DirectorsHomeComponent,
+    components.DirectorDetailComponent,
   ],
+  exports: [AppRoutingModule],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AuthModule,
+    CommonModule,
     AppRoutingModule,
-    NgbDropdownModule,
-    NgbModule,
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    StoreModule.forFeature('filmDirectors', filmDirectorsReducer),
+    EffectsModule.forRoot([effects.FilmDirectorsEffects]),
   ],
-  providers: [
-    AuthService,
-    ContactService,
-    DataStorageService
-  ],
-  bootstrap: [AppComponent]
+  providers: [services.FilmDirectorsService],
+  bootstrap: [components.DirectorsHomeComponent],
+  entryComponents: [components.DirectorsHomeComponent],
 })
-export class AppModule { }
+export class AppModule {}
