@@ -7,7 +7,6 @@ import {
   EXPORTS,
   SERVICES,
 } from './index';
-import { AppComponent } from './components/home-del/app.component';
 
 @NgModule({
   declarations: [...COMPONENTS],
