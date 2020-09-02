@@ -1,16 +1,22 @@
-<p>directors-home works!</p>
 <h1>Film Directors</h1>
 
-<ul>
+<!-- <pre>
+  State: {{ state$ | async | json }}
+  Selected: {{ selectedDirector$ | async | json }}
+</pre> -->
+
+<!-- <ul>
   <li *ngFor="let director of directors$" (click)="loadDirector(director)">
     {{ director }}
   </li>
-</ul>
+</ul> -->
 
-<pre>
-  {{ state$ | async | json }}
-  {{ selectedDirector$ | async | json }}
-</pre>
+<app-multiselect
+  [dataArray]="testData"
+  [param]="'name'"
+  [tableHeads]="tableHeads"
+  [tableData]="tableData"
+></app-multiselect>
 
-<app-director-detail [selectedDirector]="selectedDirector$ | async">
-</app-director-detail>
+<!-- <app-director-detail [selectedDirector]="selectedDirector$ | async">
+</app-director-detail> -->
