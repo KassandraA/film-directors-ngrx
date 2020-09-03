@@ -33,7 +33,7 @@ export class FilmDirectorsEffects {
       concatMap((action) =>
         this.service.loadFilmDirectorByName(action.directorName).pipe(
           map((res) => {
-            console.log('--->', res);
+            // console.log('--->', res);
             return res.success
               ? actions.filmDirectorLoadingSuccessAction({
                   filmDirector: res.data,

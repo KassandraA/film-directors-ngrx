@@ -22,15 +22,15 @@ export class DirectorsHomeComponent implements OnInit {
   elementFormControl = new FormControl();
 
   testData: { id: number; name: string; selected: boolean }[] = [
-    { id: 0, name: 'ID', selected: true },
-    { id: 1, name: 'First', selected: true },
-    { id: 2, name: 'Second', selected: false },
-    { id: 3, name: 'Third', selected: false },
-    { id: 4, name: 'Forth', selected: false },
-    { id: 5, name: 'Fifth', selected: false },
+    { id: 0, name: 'id', selected: true },
+    { id: 1, name: 'first', selected: true },
+    { id: 2, name: 'second', selected: false },
+    { id: 3, name: 'third', selected: false },
+    { id: 4, name: 'forth', selected: false },
+    { id: 5, name: 'fifth', selected: false },
   ];
 
-  tableHeads = [
+  private tableHeads = [
     { id: 0, name: 'id' },
     { id: 1, name: 'first' },
     { id: 2, name: 'second' },
@@ -124,12 +124,8 @@ export class DirectorsHomeComponent implements OnInit {
     //   select(directorsState.selectedDirector)
     // );
     this.tableHeadsCopy = this.tableHeads.slice();
-    const headersFiltered = this.getFilteredSelectedHeads();
-    this.elementFormControl.setValue(
-      // this.testData.filter((el) => el['selected'])
-      headersFiltered
-    );
-    this.itemSelected(headersFiltered);
+    this.elementFormControl.setValue(this.getFilteredSelectedHeads());
+    this.itemSelected(this.elementFormControl.value);
   }
 
   // loadDirector(name: string) {
@@ -137,24 +133,20 @@ export class DirectorsHomeComponent implements OnInit {
   // }
 
   itemSelected(items: any[]): void {
-    console.log(items);
-    items.forEach((i) => {
-      this.setDataSelection(i);
-      this.setTableHeadsCopy(i);
+    this.elementFormControl.setValue(items);
+    items.forEach((el) => {
+      this.testData.find((i) => i.id === el.id).selected = el.selected;
     });
+    this.setTableHeadsCopy(items);
   }
 
   private getFilteredSelectedHeads(): any[] {
     return this.testData.filter((el) => el['selected']);
   }
 
-  private setDataSelection(item): any {
-    this.testData.find((i) => i.id === item.id).selected = item.selected;
-  }
-
-  private setTableHeadsCopy(item: any): any {
-    this.tableHeadsCopy = this.tableHeads.slice();
-    // .filter((el) => item.selected ? item.id === el.id : );
-    // TODO: filter the HeadersCopy
+  private setTableHeadsCopy(items: any[]): any {
+    this.tableHeadsCopy = this.tableHeads.slice().filter((el) => {
+      return items.find((i) => el.id === i.id);
+    });
   }
 }

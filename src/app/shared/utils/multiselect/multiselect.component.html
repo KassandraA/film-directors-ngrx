@@ -36,24 +36,3 @@
     {{ item[param] }}
   </mat-list-item>
 </mat-list>
-
-<div class="table">
-  <table>
-    <tr>
-      <th *ngFor="let column of tableHeads">
-        {{ column.name }}
-      </th>
-    </tr>
-    <tr *ngFor="let row of tableData">
-      <td *ngFor="let column of tableHeads">
-        {{ row[column.name] }}
-      </td>
-    </tr>
-  </table>
-</div>
-
-<pre>
-
-  dataArray M {{ dataArray.length | json }}
-  tableHeads M {{ tableHeads.length | json }}
-</pre>

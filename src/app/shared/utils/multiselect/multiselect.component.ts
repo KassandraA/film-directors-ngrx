@@ -17,8 +17,6 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./multiselect.component.scss'],
 })
 export class MultiselectComponent<T> implements OnInit {
-  // elementFormControl = new FormControl();
-
   @Input() dataArray: T[];
   @Input() tableHeads: any[];
   @Input() tableData: any[];
@@ -40,10 +38,7 @@ export class MultiselectComponent<T> implements OnInit {
       map((value) => (typeof value === 'string' ? value : this.lastFilter)),
       map((filter) => this.filter(filter))
     );
-
-    // this.elementFormControl.setValue(
-    //   this.dataArray.filter((el) => el['selected'])
-    // );
+    this.tableHeads.forEach((el) => this.toggleSelection(el));
   }
 
   filter(filter: string): T[] {
@@ -64,10 +59,10 @@ export class MultiselectComponent<T> implements OnInit {
     if (Array.isArray(value)) {
       value.forEach((item, index) => {
         if (index === 0) {
-          console.log(item, this.param, item[this.param]);
-          displayValue = item[this.param];
+          //TODO: specify the param ['name']
+          displayValue = item['name'];
         } else {
-          displayValue += ', ' + item[this.param];
+          displayValue += ', ' + item['name'];
         }
       });
     } else {
@@ -91,8 +86,6 @@ export class MultiselectComponent<T> implements OnInit {
       );
       this.selectedItems.splice(i, 1);
     }
-
-    this.elementFormControl.setValue(this.selectedItems);
     this.itemSelectedAction(this.selectedItems);
   }
 
