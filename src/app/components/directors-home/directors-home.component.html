@@ -15,13 +15,14 @@
   [dataArray]="testData"
   [tableHeads]="tableHeadsCopy"
   [tableData]="tableData"
+  [elementFormControl]="elementFormControl"
   [param]="'name'"
   (itemSelectedActionEmitter)="itemSelected($event)"
 ></app-multiselect>
 
 <pre>
-  tableData {{ tableData.length | json }}
-  tableHeadsCopy {{ tableHeadsCopy.length | json }}
+  {{ elementFormControl.value | json }}
+  tableHeadsCopy {{ tableHeadsCopy | json }}
   testData {{ testData.length | json }}
 </pre>
 

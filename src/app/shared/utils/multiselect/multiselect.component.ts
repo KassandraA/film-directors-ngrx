@@ -17,12 +17,13 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./multiselect.component.scss'],
 })
 export class MultiselectComponent<T> implements OnInit {
-  elementFormControl = new FormControl();
+  // elementFormControl = new FormControl();
 
   @Input() dataArray: T[];
   @Input() tableHeads: any[];
   @Input() tableData: any[];
   @Input() param: string;
+  @Input() elementFormControl: FormControl;
 
   @Output() itemSelectedActionEmitter: EventEmitter<any[]> = new EventEmitter<
     any[]
@@ -40,9 +41,9 @@ export class MultiselectComponent<T> implements OnInit {
       map((filter) => this.filter(filter))
     );
 
-    this.elementFormControl.setValue(
-      this.dataArray.filter((el) => el['selected'])
-    );
+    // this.elementFormControl.setValue(
+    //   this.dataArray.filter((el) => el['selected'])
+    // );
   }
 
   filter(filter: string): T[] {

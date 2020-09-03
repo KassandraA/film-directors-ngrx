@@ -7,6 +7,7 @@ import { FilmDirectorHttpModel, IFilmDirectorsState } from 'src/app/models';
 import { Directors, TestData } from '../../../assets/film-directors-names';
 import * as actions from '../../actions';
 import * as directorsState from '../../selectors';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-directors-home',
@@ -17,6 +18,8 @@ export class DirectorsHomeComponent implements OnInit {
   // directors$: { id: number; name: string; selected: boolean }[] = Directors;
   // state$: Observable<IFilmDirectorsState>;
   // selectedDirector$: Observable<FilmDirectorHttpModel>;
+
+  elementFormControl = new FormControl();
 
   testData: { id: number; name: string; selected: boolean }[] = [
     { id: 0, name: 'ID', selected: true },
@@ -121,6 +124,12 @@ export class DirectorsHomeComponent implements OnInit {
     //   select(directorsState.selectedDirector)
     // );
     this.tableHeadsCopy = this.tableHeads.slice();
+    const headersFiltered = this.getFilteredSelectedHeads();
+    this.elementFormControl.setValue(
+      // this.testData.filter((el) => el['selected'])
+      headersFiltered
+    );
+    this.itemSelected(headersFiltered);
   }
 
   // loadDirector(name: string) {
@@ -129,8 +138,23 @@ export class DirectorsHomeComponent implements OnInit {
 
   itemSelected(items: any[]): void {
     console.log(items);
-    this.tableHeadsCopy = this.tableHeads
-      .slice()
-      .filter((el) => items.some((i) => i.id === el.id));
+    items.forEach((i) => {
+      this.setDataSelection(i);
+      this.setTableHeadsCopy(i);
+    });
+  }
+
+  private getFilteredSelectedHeads(): any[] {
+    return this.testData.filter((el) => el['selected']);
+  }
+
+  private setDataSelection(item): any {
+    this.testData.find((i) => i.id === item.id).selected = item.selected;
+  }
+
+  private setTableHeadsCopy(item: any): any {
+    this.tableHeadsCopy = this.tableHeads.slice();
+    // .filter((el) => item.selected ? item.id === el.id : );
+    // TODO: filter the HeadersCopy
   }
 }
