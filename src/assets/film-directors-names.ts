@@ -1,7 +1,7 @@
 // tslint:disable-next-line: no-unused-expression
 export const TestData = [
-  { id: 0, name: 'ID', selected: false },
-  { id: 1, name: 'First', selected: false },
+  { id: 0, name: 'ID', selected: true },
+  { id: 1, name: 'First', selected: true },
   { id: 2, name: 'Second', selected: false },
   { id: 3, name: 'Third', selected: false },
   { id: 4, name: 'Forth', selected: false },

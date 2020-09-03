@@ -40,20 +40,21 @@
 <div class="table">
   <table>
     <tr>
-      <th *ngFor="let column of tableHeadsCopy">
+      <th *ngFor="let column of tableHeads">
         {{ column.name }}
       </th>
     </tr>
     <tr *ngFor="let row of tableData">
-      <td *ngFor="let column of tableHeadsCopy">
+      <td *ngFor="let column of tableHeads">
         {{ row[column.name] }}
       </td>
     </tr>
   </table>
 </div>
 
-<!-- <pre>
+<pre>
   {{ elementFormControl.value | json }}
- Copy {{ tableHeadsCopy.length | json }}
- Heads {{ tableHeads.length | json }}
-</pre> -->
+  dataArray M {{ dataArray.length | json }}
+  tableHeads M {{ tableHeads.length | json }}
+  tableData M {{ tableData.length | json }}
+</pre>

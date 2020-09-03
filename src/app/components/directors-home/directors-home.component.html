@@ -13,10 +13,17 @@
 
 <app-multiselect
   [dataArray]="testData"
-  [param]="'name'"
-  [tableHeads]="tableHeads"
+  [tableHeads]="tableHeadsCopy"
   [tableData]="tableData"
+  [param]="'name'"
+  (itemSelectedActionEmitter)="itemSelected($event)"
 ></app-multiselect>
+
+<pre>
+  tableData {{ tableData.length | json }}
+  tableHeadsCopy {{ tableHeadsCopy.length | json }}
+  testData {{ testData.length | json }}
+</pre>
 
 <!-- <app-director-detail [selectedDirector]="selectedDirector$ | async">
 </app-director-detail> -->

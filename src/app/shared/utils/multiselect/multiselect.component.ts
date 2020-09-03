@@ -1,20 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+} from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-
-// export class User {
-//   constructor(
-//     public firstname: string,
-//     public lastname: string,
-//     public selected?: boolean
-//   ) {
-//     if (selected === undefined) {
-//       selected = false;
-//     }
-//   }
-// }
 
 @Component({
   selector: 'app-multiselect',
@@ -25,11 +20,14 @@ export class MultiselectComponent<T> implements OnInit {
   elementFormControl = new FormControl();
 
   @Input() dataArray: T[];
-  @Input() param: string;
   @Input() tableHeads: any[];
   @Input() tableData: any[];
+  @Input() param: string;
 
-  tableHeadsCopy = [];
+  @Output() itemSelectedActionEmitter: EventEmitter<any[]> = new EventEmitter<
+    any[]
+  >();
+
   selectedItems: T[] = new Array<T>();
 
   filteredItems: Observable<T[]>;
@@ -41,7 +39,10 @@ export class MultiselectComponent<T> implements OnInit {
       map((value) => (typeof value === 'string' ? value : this.lastFilter)),
       map((filter) => this.filter(filter))
     );
-    this.tableHeadsCopy = this.tableHeads;
+
+    this.elementFormControl.setValue(
+      this.dataArray.filter((el) => el['selected'])
+    );
   }
 
   filter(filter: string): T[] {
@@ -85,7 +86,6 @@ export class MultiselectComponent<T> implements OnInit {
       this.selectedItems.push(item);
     } else {
       const i = this.selectedItems.findIndex(
-        // (value) => value[this.param] === item[this.param]
         (value) => value[this.param] === item[this.param]
       );
       this.selectedItems.splice(i, 1);
@@ -96,9 +96,6 @@ export class MultiselectComponent<T> implements OnInit {
   }
 
   itemSelectedAction(items: any[]): void {
-    console.log(items);
-    this.tableHeadsCopy = this.tableHeads
-      .slice()
-      .filter((el) => items.some((i) => i.id === el.id));
+    this.itemSelectedActionEmitter.emit(items);
   }
 }
