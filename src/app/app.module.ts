@@ -6,12 +6,13 @@ import {
   IMPORTS,
   EXPORTS,
   SERVICES,
+  MATERIAL,
 } from './index';
 
 @NgModule({
   declarations: [...COMPONENTS],
-  exports: [...EXPORTS],
-  imports: [...IMPORTS],
+  exports: [...EXPORTS, ...MATERIAL],
+  imports: [...IMPORTS, ...MATERIAL],
   providers: [...SERVICES],
   entryComponents: [...ENTRY_COMPONENTS],
   bootstrap: [...ENTRY_COMPONENTS],

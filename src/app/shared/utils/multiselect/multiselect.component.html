@@ -1,0 +1,38 @@
+<mat-form-field class="example-full-width">
+  <input
+    type="text"
+    placeholder="Select..."
+    aria-label="Select..."
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="elementFormControl"
+  />
+  <!-- <mat-hint>Enter text to find users by name</mat-hint> -->
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+  <mat-option
+    *ngFor="let item of filteredItems | async"
+    [value]="selectedItems"
+  >
+    <div (click)="optionClicked($event, item)">
+      <mat-checkbox
+        [checked]="item.selected"
+        (change)="toggleSelection(item)"
+        (click)="$event.stopPropagation()"
+      >
+        {{ item[param] }}
+      </mat-checkbox>
+    </div>
+  </mat-option>
+</mat-autocomplete>
+
+<br /><br />
+
+<label>Selected:</label>
+<mat-list dense>
+  <mat-list-item *ngIf="selectedItems?.length === 0">(None)</mat-list-item>
+  <mat-list-item *ngFor="let item of selectedItems">
+    {{ item[param] }}
+  </mat-list-item>
+</mat-list>

@@ -20,7 +20,7 @@ export class FilmDirectorsService {
     const res = this.httpService.get(url) as Observable<
       Envelope<FilmDirectorHttpModel>
     >;
-    console.log('service', res);
+    // console.log('service', res);
     return res;
   }
 }
